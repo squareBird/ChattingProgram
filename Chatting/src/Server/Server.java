@@ -21,7 +21,7 @@ public class Server implements ServerInterface {
 			conn = DriverManager.getConnection(
 					"jdbc:mysql://localhost:3306/ChatDB?characterEncoding=UTF-8&serverTimezone=UTC", "root", "sphere12#");
 			stmt = conn.createStatement();
-			System.out.println("Success!");
+			System.out.println("DB Connect Success!");
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -36,8 +36,10 @@ public class Server implements ServerInterface {
 	}
 
 	@Override
-	public void signIn() {
-
+	public ResultSet signIn(String id, String pwd) throws SQLException {
+		String query = "select id from account where id ='" + id + "' and pwd ='" + pwd +"';";
+//		System.out.println("SendQuery : " + query);
+		return sendExecuteQuery(query);
 	}
 
 	@Override
